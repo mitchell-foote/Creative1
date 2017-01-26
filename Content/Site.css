@@ -1,0 +1,14 @@
+﻿body { 
+  background: url('Pictures/Red Backdrop.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.white-text {
+    color: #fffaf0;
+}
+.extra-space {
+    margin: 1em;
+}

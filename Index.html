@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Search and Discover</title>
+	<meta charset="utf-8" />
+    <link href="Content/tether/tether.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/Site.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-toggleable-sm navbar-dark">
+        <div class="navbar-brand" style="color:#fffaf0">
+            <span>Movies!</span>
+        </div>
+        <ul class="navbar-nav mr-auto">
+            <li data-bind="click: startQuiz" class="nav-item white-text extra-space">
+                Quiz
+            </li>
+            <li data-bind="click: reset" class="nav-item white-text extra-space">
+                Reset
+            </li>
+        </ul>
+        <form data-bind="submit: searchMovies" class="form-inline">
+            <input class="form-control mr-sm-2" data-bind="textinput: searchString" type="text" placeholder="Search For Films" />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+
+    <div class="container" style="background: rgba(0,0,0,0); color:#fffaf0">
+        <div class="jumbotron" style="color:black">
+            <h2>Welcome to the best movie website!</h2>
+            <h3>On this page you have two options.</h3>
+            <h4>1. Search for movie titles in the search bar.</h4>
+            <h4>2. Click on the Valentine's day movie help quiz to pick the movie to watch tonight!</h4>
+        </div>
+
+    </div>
+
+    <div data-bind="visible: quiz" class="container col-md-12">
+        <div data-bind="with: question" class="jumbotron">
+            <div class="col-sm-12 text-center" id="questionDisplay">
+                <h2 data-bind="text: questionText">Do you prefer live action over animated films?</h2>
+            </div>
+            <div class="btn-group col-sm-12 justify-content-sm-center">
+                <button class="btn btn-lg btn-success" data-bind="click: $parent.rightQuestionClick">Yes</button>
+                <button class="btn btn-lg btn-danger" data-bind="click: $parent.leftQuestionClick" id="answerNo">No</button>
+                <button class="btn btn-lg btn-primary" data-bind="visible: prevButton, click: backClick" id="previous">Prev</button>
+            </div>
+            
+        </div>
+    </div>
+
+    
+    <div class="container" data-bind="visable: !currentMovie" style="background: rgba(0,0,0,.3)">
+        <div class="card-deck" data-bind="foreach: searchedMovies">
+            <div class="col-sm-3">
+                <div class="card" data-bind="click: $parent.pickMovie">
+                    <img data-bind="attr: { src: posterPath, alt: title}" class="card-img-top" />
+                    <h4 class="card-title" data-bind="text:title"></h4>
+                    <div class="card-footer">
+                        <small>Release Date: <span data-bind="text: release_date"></span></small>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="container">
+        <div data-bind="visible: currentMovie">
+            <div class="jumbotron" data-bind="with: currentMovie">
+                <div class="row">
+                    <img class="col-4" data-bind="attr: {src: largerPosterPath, alt: title}" />
+                    <div class="col-8">
+                        <div class="form-group row">
+                            <h2 class="col-4">Title: </h2>
+                            <h2 class="col-8" data-bind="text: title"></h2>
+                        </div>
+                        <div class="form-group row">
+                            <h3 class="col-4">Overview: </h3>
+                            <p class="col-8" data-bind="text: overview"></p>
+                        </div>
+                        <div class="form-group row">
+                            <h3 class="col-4">Rating: </h3>
+                            <p class="col-8" data-bind="text: popularity"></p>
+                        </div>
+                        <div class="form-group row">
+                            <h3 class="col-4">Release Date: </h3>
+                            <p class="col-8" data-bind="text: release_date"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+
+    <script src="Scripts/jquery-1.9.1.js"></script>
+    <script src="Scripts/tether/tether.min.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/knockout-3.4.1.js"></script>
+    <script src="Scripts/movieDb.js"></script>
+
+    <script type="text/javascript">
+        ko.applyBindings(new AppViewModel());
+    </script>
+
+    <!--script type="text/javascript">
+        $(document).ready(function () {
+            $("#clickme").click(runMe());
+        });
+        var runMe = function () {
+            debugger;
+            $.get("https://api.themoviedb.org/3/search/movie", {
+                api_key: "51cb521423c01a8aa772bfe22e7a83c9",
+                language: "en-US",
+                query: "batman",
+                page: "1",
+                include_adult: "false"
+            }, function (data) {
+                debugger;
+                $("#data").text(data);
+            });
+        }
+    </script>-->
+</body>
+</html>
